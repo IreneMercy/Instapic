@@ -42,3 +42,13 @@
 #### For more information read the following django and python documentation:
   - [DjangoDocumentation](https://docs.djangoproject.com/en/1.11/intro/install/)
   - [PythonDocumentation](https://www.python.org/doc/)
+
+
+
+
+### User Stories
+##### As a user, I would like to sign in to the application to start using it.
+##### As a user, I would like to upload my pictures to the application.
+##### As a user, I would like to see my profile with all my pictures.
+##### As a user, I would like to follow other users and see their pictures on my timeline.
+##### As a user, I would like to like a picture and leave a comment on it.
