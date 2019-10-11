@@ -60,3 +60,12 @@
 ##### Given that the user has uploaded a photo, then, the application should display the photo uploaded.
 ##### Given that a user has logged in, created a profile and posted a picture, then they  should be able to view their profile and all the photos they've posted.
 ##### Given that a user has an account, then they should be able to follow other users, see the photos of the users they are following on their timeline and also like and comment on those photos.
+
+
+
+### Technologies Used
+##### Python
+##### Django
+##### PostgreSQL
+##### HTML5
+##### CSS3
