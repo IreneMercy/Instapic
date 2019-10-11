@@ -20,10 +20,10 @@
   - ```cd your preferred directory``` => ```cd Desktop```
 ##### Git clone the project on your current directory by:
   - ```git clone https://github.com/IreneMercy/Instapic.git```.
+##### Move to your project directory:
+- ```cd Instapic```.
 ##### Open the project on your terminal:
   - ```atom . or code .``` , according to the type of your text editor.
-##### Move to your project directory:
-  - ```cd Instapic```.
 ##### Install virtual environment using python:
   - ```python3.6 -m venv virtual```, check your project to confirm you have a folder called virtual,
   - then activate it by running ```source virtual/bin/activate```
