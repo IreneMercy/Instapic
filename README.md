@@ -69,3 +69,9 @@
 ##### PostgreSQL
 ##### HTML5
 ##### CSS3
+
+
+
+
+### Licence
+[MIT](LICENSE)
