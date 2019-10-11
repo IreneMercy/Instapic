@@ -52,3 +52,11 @@
 ##### As a user, I would like to see my profile with all my pictures.
 ##### As a user, I would like to follow other users and see their pictures on my timeline.
 ##### As a user, I would like to like a picture and leave a comment on it.
+
+
+
+### Behavior Driven Development
+##### Given that a user sign-up with the correct details, and use those details to login successfully, then they should be able to access the application and it's features.
+##### Given that the user has uploaded a photo, then, the application should display the photo uploaded.
+##### Given that a user has logged in, created a profile and posted a picture, then they  should be able to view their profile and all the photos they've posted.
+##### Given that a user has an account, then they should be able to follow other users, see the photos of the users they are following on their timeline and also like and comment on those photos.
