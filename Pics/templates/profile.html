@@ -1,0 +1,34 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content %}
+      <div class="container">
+        <div class="media">
+          <div class="row">
+            <div class="col-md-8"></div>
+              <div class="col-md-4">
+                <div class="">
+                  {% for profile in profiles %}
+                    <img class="rounded-circle account-profile" src="{{profile.profile_photo.url}}" alt="profile.profile_photo.url">
+                    <div class="media-container">
+                      <h2 class="account-header">{{user.username}}</h2>
+                      <p class="text-info">{{user.email}}</p>
+                      <img src="{{user.profile.profile_photo}}" alt="user_profile">
+                    </div>
+                    <p>{{profile.bio}}</p>
+                  {% endfor %}
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  </body>
+</html>
