@@ -1,0 +1,15 @@
+
+.account-profile{
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.media{
+  background-color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 3px;
+  border:1px solid #dddddd;
+  margin-bottom: 20px;
+}
