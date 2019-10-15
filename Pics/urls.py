@@ -13,6 +13,9 @@ urlpatterns = [
     path('', views.post, name='posts'),
     path('post_create/', views.post_create, name="createpost"),
     path('comment/<post_id>/', views.comment, name="comment"),
+    path('commenting/<post_id>', views.commenting, name="commenting"),
+    path('search/', views.search_user, name="search"),
+    path('likes/<post_id>', views.likes, name="likes"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
