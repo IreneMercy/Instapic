@@ -1,23 +1,56 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch  import receiver
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_photo = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.png', upload_to='profile_pics/')
     bio = models.CharField(max_length=255)
 
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    @classmethod
-    def get_image(cls,user):
-        images = cls.objects.filter(user=user)
-        return images
+    class Meta:
+        db_table = 'profile'
+
+    @receiver(post_save, sender=User)
+    def update_create_profile(sender,instance,created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
 
 
 class Post(models.Model):
     author = models.ForeignKey('auth.user', on_delete=models.CASCADE)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='profile_pics/')
     caption = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField( User, related_name='likes', blank=True)
+
+
+    def __str__(self):
+        return f'{self.author} Post'
+
+    class Meta:
+        db_table = 'post'
+        ordering = ['-created_date']
+
+
+    def save_post(self):
+        self.save()
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=100)
+    created_date = models.DateTimeField(default=timezone.now)
+
+
+
+    def __str__(self):
+        return f'{self.post.author}, {self.user.username}'
+
+    class Meta:
+        db_table = 'comment'
