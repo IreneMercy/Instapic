@@ -38,7 +38,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config('123455')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'Instapic.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME',),
-        'USER': config('DB_USER'),
-        'PASSWORD':config('DB_PASSWORD'),
+        'NAME': 'insta',
+        'USER': 'joozao'),
+        'PASSWORD':'12345joozao'),
     }
 }
 
