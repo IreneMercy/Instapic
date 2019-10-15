@@ -15,20 +15,41 @@
       <div class="container content-container content">
         <div class="">
             <div class="row">
-              <div class="col-md-2"></div>
-                <div class="col-md-6">
+              <!-- <div class="col-md-4">
+                <div class="container">
+                  <div class="row py-3">
+                      <div class="col-3 order-2" id="sticky-sidebar">
+                          <div class="">
+                              {% for post in posts %}
+                              {% if post.author == user%}
+                              <div class="side-image">
+                                <img class="w-100 side-image rounded-circle" src="{{ post.author.profile.image.url }}" alt="img">
+                              </div>
+                              <h3 class="mt-2">{{post.author}}</h3>
+                              <p>{{post.author.email}}</p>
+                              {{posts.all.count}} Posts {{post.posts.all.pluralize}}
+                              <button type="button" class="btn btn-info ml-2" name="button">Follow</button>
+                              {% endif %}
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-md-1"></div>
+                <div class="col-md-10">
                     {% for post in posts %}
                       <div class="media-container">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-image">
                             <div class="profile-image">
-                              <img class="profile-image" src="{{ user.profile.image.url }}" alt="img">
+                              <img class="profile-image" src="{{ post.author.profile.image.url }}" alt="img">
                             </div>
                             <div class="post-author">
                               <h5 class="account-header mb-2">{{post.author}}</h5>
                             </div>
-                            <img class="w-100" src="{{post.image.url}}" alt="{{post.author}}">
+                            <a href="{% url 'commenting' post.id %}"><img class="w-100" src="{{post.image.url}}" alt="{{post.author}}"></a>
                           </div>
                           <div class="post-info">
                             <div class="post-caption">
@@ -36,12 +57,23 @@
                             </div>
                             <div class="post-date">
                               <p>{{post.created_date|timesince}} ago</p>
-                              <a class="text-info ml-3" href="#"><i class="fa fa-comment"></i></a>
+                              <a class="text-info ml-3" href="{% url 'commenting' post.id%}"><i class="fa fa-comment"></i>
+                                {{post.comments.all.count}} {{post.comments.all.pluralize}}</a>
                               <a class="text-info ml-3" href="#"><i class="fa fa-share"></i></a>
-                              <a class="text-info ml-3" href="#"><i class="fa fa-heart "></i></a>
+
+                                <div class="count">
+                                {% if post.likes.id == user.id %}
+                                  <a class="text-danger ml-3" href="{% url 'likes' post.id%}"><i class="fa fa-heart "></i>{{post.likes.count}}</a>
+                                {% else %}
+                                <a class="text-info ml-2" href="{% url 'likes' post.id%}"><i class="fa fa-heart "></i>
+                                  {{post.likes.count}}
+                                </a>
+                                {% endif %}
+
+                                </div>
                             </div>
                             <div class="comment mt-2">
-                              <form action="{% url 'comment' post_id=post.id %}" method="post">
+                              <form action="{% url 'comment' post.id %}" method="post">
                                 {% csrf_token %}
                                 {{comment_form|crispy}}
                                 <input type="submit" class="btn btn-info"  value="Comment">
@@ -52,16 +84,8 @@
                       </div>
                       </div>
                     {% endfor %}
-                    <div class="comment">
-                      {{comments.count}} comment{{comments.pluralize}}
-                      {% for content in comments %}
-                        <blockquote class="blockquote ">
-                          <p class="mb-0 text-danger">{{content.comment}}</p>
-                          <footer class="blockquote-footer">By<cite title="Source Title">{{comment.user|title}}</cite></footer>
-                        </blockquote>
-                      {% endfor %}
-                    </div>
                 </div>
+                <div class="col-md-1"></div>
             </div>
         </div>
       </div>
