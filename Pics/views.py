@@ -58,13 +58,12 @@ def post_create(request):
 
 @login_required
 def comment(request, post_id):
-    comment_form = CommentForm()
-    post = Post.objects.filter(pk=post_id).first()
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
+            post = Post.get_post(post_id)
             comment.post = post
             comment.save()
             return redirect('posts')
@@ -74,6 +73,15 @@ def comment(request, post_id):
         "comment_form":comment_form,
     }
     return render(request, 'posts.html', context)
+
+
+@login_required
+def commenting(request, post_id):
+    posts = Post.objects.get(pk=post_id)
+    context ={
+        "posts":posts,
+    }
+    return render(request, 'comments.html', context)
 
 @login_required
 def profile(request):
@@ -96,3 +104,36 @@ def profile(request):
     'posts':posts,
     }
     return render(request, 'profile.html', context)
+
+
+def search_user(request):
+    if 'post' in request.GET and request.GET['post']:
+        search_term = request.GET["post"]
+        searched_posts = Post.search_by_author(search_term)
+        message = f'search_term'
+        author = User.objects.all()
+        context = {
+            "author":author,
+            "posts":searched_posts,
+            "message":message,
+
+        }
+        return render(request, 'search.html', context)
+    else:
+        message = "You haven't searched for any user"
+        context = {
+            "message":message,
+        }
+        return render(request, 'search.html', context)
+
+
+@login_required
+def likes(request, post_id):
+    post = Post.objects.get(pk=post_id)
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        is_liked = False
+    else:
+        post.likes.add(request.user)
+        is_liked = True
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
