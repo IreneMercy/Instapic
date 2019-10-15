@@ -1,1 +1,1 @@
-web: gunicorn  Instapic.wsgi
+web: gunicorn  Instapic.wsgi 
