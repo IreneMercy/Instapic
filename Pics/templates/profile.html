@@ -12,7 +12,7 @@
     {% block content %}
       <div class="container">
         <div class="media">
-          <div class="row">
+          <div class="row mt-5">
               <div class="col-md-12 mt-5 text-center">
                 <div class="">
                       <img class="rounded-circle account-profile" src="{{ user.profile.image.url }}" alt="user">
@@ -28,7 +28,7 @@
                     <div class="container">
                       <div class="row">
                         <div class="col-md-12">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update">Update Profile</button>
+                          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#update">Update Profile</button>
                           <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
@@ -63,14 +63,18 @@
               </div>
 
         <div class="row">
-            {% if user.is_authenticated %}
+              <div class="col-md-12 text-center">
+                <h2 class="text-info">Posts</h2>
+                <hr>
+              </div>
               {% for post in posts %}
+                {% if post.author == user %}
                 <div class="col-md-4">
-                  <img class="w-100" src="{{post.image.url}}" alt="image">
+                  <img class="w-100 mt-3 " src="{{post.image.url}}" alt="image">
 
                 </div>
+                {% endif %}
               {% endfor %}
-            {% endif %}
           </div>
       </div>
     {% endblock %}
