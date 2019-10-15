@@ -1,6 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -12,22 +13,65 @@
       <div class="container">
         <div class="media">
           <div class="row">
-            <div class="col-md-8"></div>
-              <div class="col-md-4">
+              <div class="col-md-12 mt-5 text-center">
                 <div class="">
-                  {% for profile in profiles %}
-                    <img class="rounded-circle account-profile" src="{{profile.profile_photo.url}}" alt="profile.profile_photo.url">
-                    <div class="media-container">
-                      <h2 class="account-header">{{user.username}}</h2>
-                      <p class="text-info">{{user.email}}</p>
-                      <img src="{{user.profile.profile_photo}}" alt="user_profile">
+                      <img class="rounded-circle account-profile" src="{{ user.profile.image.url }}" alt="user">
+                      <div class="media-container">
+                        <h2 class="account-header">{{user.username}}</h2>
+                        <p class="text-info">{{user.email}}</p>
+                      </div>
+                      <p>{{user.profile.bio}}</p>
+                </div>
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4 text-center pb-5">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#update">Update Profile</button>
+                          <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form  method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                      <legend class="border-bottom mb-4 text-center text-black mt-5">Update Account</legend>
+                                      {{user_form|crispy}}
+                                      {{profile_form|crispy}}
+
+                                    </div>
+                                    <div class="form-group">
+                                      <input type="submit" class="btn btn-outline-info w-100 pl-2 pr-2"  value="Update">
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <p>{{profile.bio}}</p>
-                  {% endfor %}
+                  </div>
                 </div>
               </div>
+
+        <div class="row">
+            {% if user.is_authenticated %}
+              {% for post in posts %}
+                <div class="col-md-4">
+                  <img class="w-100" src="{{post.image.url}}" alt="image">
+
+                </div>
+              {% endfor %}
+            {% endif %}
           </div>
-        </div>
       </div>
     {% endblock %}
   </body>
