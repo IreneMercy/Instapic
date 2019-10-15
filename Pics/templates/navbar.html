@@ -29,9 +29,10 @@
                  <a class="ml-3 text-info" href="{% url 'register' %}">Register</a>
                {% endif %}
              </ul>
-             <div class="search_bar ml-auto text-white">
-               <form method="post">
-                 <input type="text" class=" search" placeholder="search">
+             <div class="search_bar ml-auto">
+               <form action="{% url 'search' %}" class="text-black" method="get">
+                 {% csrf_token %}
+                 <input type="text" name="post" class="search text-black" placeholder="search">
                  <button type="submit" class="btn btn-info"> <i class="fa fa-search"></i> </button>
                </form>
              </div>
