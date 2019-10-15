@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch  import receiver
+from django.http import Http404
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,12 +23,15 @@ class Profile(models.Model):
         instance.profile.save()
 
 
+    def save_profile(self):
+        self.save()
+
 class Post(models.Model):
-    author = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    author = models.ForeignKey('auth.user',on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profile_pics/')
     caption = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    likes = models.ManyToManyField( User, related_name='likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True)
 
 
     def __str__(self):
@@ -37,12 +41,31 @@ class Post(models.Model):
         db_table = 'post'
         ordering = ['-created_date']
 
+    def addlikes(self):
+        self.likes.count()
 
     def save_post(self):
         self.save()
 
+    def delete_post(self):
+        self.delete()
+
+    @classmethod
+    def search_by_author(cls,search_term):
+        image = cls.objects.filter(author__username__icontains=search_term)
+        return image
+
+    @classmethod
+    def get_post(cls,id):
+        try:
+            post = Post.objects.get(pk=id)
+        except ObjectDoesNotExist:
+            raise Http404()
+        return post
+
+
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100)
     created_date = models.DateTimeField(default=timezone.now)
@@ -54,3 +77,6 @@ class Comment(models.Model):
 
     class Meta:
         db_table = 'comment'
+
+    def save_comment(self):
+        self.save()
