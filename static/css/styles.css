@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+.content{
+  font-family: 'Josefin Sans', sans-serif;
+}
+.container{
+
+  background-color: #F8F8FF;
+}
 
 .account-profile{
   height: 125px;
@@ -12,4 +21,67 @@
   border-radius: 3px;
   border:1px solid #dddddd;
   margin-bottom: 20px;
+}
+
+
+.search{
+  color:white;
+  background-color: transparent;
+  border-bottom:2px solid #17a2b8;
+  border-top:2px solid #17a2b8;
+  border-left:2px solid #17a2b8;
+  border-right:2px solid #17a2b8;
+  height: 38px;
+}
+
+a{
+  text-decoration: none;
+  text-decoration-line: none;
+  list-style-type: none
+}
+
+.content-container{
+  padding-top: 50px;
+  background-color: #FAFAFA;
+  position: absolute;
+  width: 100%
+  top:83px;
+  left: 0px;
+}
+
+.card{
+  background-color: #ffffff;
+  margin: 0 auto;
+  width: 614px;
+  height: auto;
+  border:.8px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 60px;
+}
+.profile-image{
+  display: inline-block;
+  background-color: #17a2b8;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  margin:0;
+  border:0 solid #000000;
+  border-radius: 50%;
+}
+
+.post-author{
+  display: inline-block;
+  padding-left: 14px;
+}
+.like{
+  display: inline;
+
+}
+
+
+.brand{
+  font-size:28px;
+}
+.light{
+  background-color:	#F5F5F5;
 }
