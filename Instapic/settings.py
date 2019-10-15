@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Instapic.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'instagram',
+        'NAME': 'insta',
         'USER': 'joozao',
         'PASSWORD':'12345joozao'
     }
@@ -140,5 +140,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-LOGIN_REDIRECT_URL =  'home'
+LOGIN_REDIRECT_URL =  'posts'
 LOGIN_URL = 'login'
