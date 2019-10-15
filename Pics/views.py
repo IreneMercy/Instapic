@@ -12,13 +12,18 @@ def registration(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             form.save()
+
             username=form.cleaned_data['username']
             email=form.cleaned_data['email']
             password1=form.cleaned_data['password1']
             recipient=User(username=username,email=email)
-            send_welcome_email(username,email)
-            messages.success(request, f'Account has been created successfully!')
+            try:
+                send_welcome_email(username,email)
+                messages.success(request, f'Account has been created successfully!')
+            except:
+                print('error')
             return redirect('login')
+
     else:
         form = RegisterForm()
     context = {
@@ -136,4 +141,4 @@ def likes(request, post_id):
     else:
         post.likes.add(request.user)
         is_liked = True
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER')) 
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
