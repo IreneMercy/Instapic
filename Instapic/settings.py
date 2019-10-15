@@ -17,14 +17,14 @@ from django.conf.urls.static import static
 import os
 import dj_database_url
 import django_heroku
-from decouple import config,Csv
+from decouple import config,Cast
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', cast=bool)
 DATABASES = {
    'default': dj_database_url.config(
        default=config('DATABASE_URL')
