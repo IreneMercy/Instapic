@@ -1,0 +1,70 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% block content %}
+    <hr class="mt-5">
+      <div class="container content-container content">
+        <div class="">
+            <div class="row">
+              <div class="col-md-2"></div>
+                <div class="col-md-6">
+                    {% for post in posts %}
+                      <div class="media-container">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-image">
+                            <div class="profile-image">
+                              <img class="profile-image" src="{{ user.profile.image.url }}" alt="img">
+                            </div>
+                            <div class="post-author">
+                              <h5 class="account-header mb-2">{{post.author}}</h5>
+                            </div>
+                            <img class="w-100" src="{{post.image.url}}" alt="{{post.author}}">
+                          </div>
+                          <div class="post-info">
+                            <div class="post-caption">
+                              <p class="text-black mt-2">{{post.caption}}</p>
+                            </div>
+                            <div class="post-date">
+                              <p>{{post.created_date|timesince}} ago</p>
+                              <a class="text-info ml-3" href="#"><i class="fa fa-comment"></i></a>
+                              <a class="text-info ml-3" href="#"><i class="fa fa-share"></i></a>
+                              <a class="text-info ml-3" href="#"><i class="fa fa-heart "></i></a>
+                            </div>
+                            <div class="comment mt-2">
+                              <form action="{% url 'comment' post_id=post.id %}" method="post">
+                                {% csrf_token %}
+                                {{comment_form|crispy}}
+                                <input type="submit" class="btn btn-info"  value="Comment">
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    {% endfor %}
+                    <div class="comment">
+                      {{comments.count}} comment{{comments.pluralize}}
+                      {% for content in comments %}
+                        <blockquote class="blockquote ">
+                          <p class="mb-0 text-danger">{{content.comment}}</p>
+                          <footer class="blockquote-footer">By<cite title="Source Title">{{comment.user|title}}</cite></footer>
+                        </blockquote>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    {% endblock %}
+  </body>
+</html>
