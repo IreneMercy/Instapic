@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
@@ -16,6 +16,7 @@ urlpatterns = [
     path('commenting/<post_id>', views.commenting, name="commenting"),
     path('search/', views.search_user, name="search"),
     path('likes/<post_id>', views.likes, name="likes"),
+    re_path(r'^follow/(?P<operation>.+)/(?P<pk>\d+)/$', views.follow, name="follow" )
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
