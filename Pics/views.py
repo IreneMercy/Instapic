@@ -54,6 +54,8 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
+            messages.success(request, f'You post have been created successfully!!')
+            return redirect('posts')
     else:
         form = PostForm()
     context = {
